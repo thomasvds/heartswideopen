@@ -19,6 +19,10 @@ gem 'geocoder'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'simple_form'
+gem 'figaro'
+gem 'twilio'
+gem 'redis'
+gem 'sidekiq'
 
 
 group :development, :test do

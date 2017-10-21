@@ -27,5 +27,6 @@ module Heartswideopen
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.twilio_phone_number = "+32460207670"
   end
 end

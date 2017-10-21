@@ -1,38 +1,76 @@
-<div class="container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Actif?</th>
-        <th>Nom</th>
-        <th>GSM</th>
-        <th># places</th>
-        <th>Adresse</th>
-        <th>LUN</th>
-        <th>MAR</th>
-        <th>MER</th>
-        <th>JEU</th>
-        <th>VEN</th>
-        <th>SAM</th>
-        <th>DIM</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @volunteers.each do |volunteer| %>
-        <tr>
-          <th scope="row"><%= volunteer.active? %></th>
-          <td><%= volunteer.full_name %></td>
-          <td><%= volunteer.mobile_phone_number %></td>
-          <td><%= volunteer.number_of_beds %></td>
-          <td><%= volunteer.address %></td>
-          <td><i class="fa <%= volunteer.available_mon ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
-          <td><i class="fa <%= volunteer.available_tue ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
-          <td><i class="fa <%= volunteer.available_wed ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
-          <td><i class="fa <%= volunteer.available_thu ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
-          <td><i class="fa <%= volunteer.available_fri ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
-          <td><i class="fa <%= volunteer.available_sat ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
-          <td><i class="fa <%= volunteer.available_sun ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="container u-top-margin">
+  <div class="card">
+    <h3 class="card-header">Liste des hébergeurs et disponibilités</h3>
+    <div class="card-block">
+      <div class="card-text">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Actif?</th>
+              <th>Nom</th>
+              <th>GSM</th>
+              <th># lits</th>
+              <th>Adresse</th>
+              <th>LUN</th>
+              <th>MAR</th>
+              <th>MER</th>
+              <th>JEU</th>
+              <th>VEN</th>
+              <th>SAM</th>
+              <th>DIM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @volunteers.each do |volunteer| %>
+            <tr>
+              <th scope="row"><%= volunteer.active? %></th>
+              <td><%= volunteer.full_name %></td>
+              <td><%= volunteer.mobile_phone_number %></td>
+              <td><%= volunteer.number_of_beds %></td>
+              <td><%= volunteer.address %></td>
+              <td><i class="fa <%= volunteer.available_mon ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+              <td><i class="fa <%= volunteer.available_tue ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+              <td><i class="fa <%= volunteer.available_wed ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+              <td><i class="fa <%= volunteer.available_thu ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+              <td><i class="fa <%= volunteer.available_fri ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+              <td><i class="fa <%= volunteer.available_sat ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+              <td><i class="fa <%= volunteer.available_sun ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+ #map {
+  height: 400px;
+  width: 100%;
+}
+</style>
+<div id="map"></div>
+<script>
+
+  function initMap() {
+    var myLatLng = {lat: <%= @volunteers.first.latitude %>, lng: <%= @volunteers.first.longitude %>};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: myLatLng
+    });
+
+    <% @volunteers.each do |v| %>
+    <% next if v.latitude.nil? %>
+    var marker = new google.maps.Marker({
+      position: {lat: <%= v.latitude %>, lng: <%= v.longitude %>},
+      map: map,
+      title: '<%= v.full_name %>'
+    });
+    <% end %>
+  };
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['google_map_api_key']%>&callback=initMap">
+</script>

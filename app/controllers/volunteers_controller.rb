@@ -5,6 +5,7 @@ class VolunteersController < ApplicationController
 
   def index
     @volunteers = Volunteer.all
+    # @location = Location.near(params[:search], 50, :order => :distance)
   end
 
   def create
