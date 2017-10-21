@@ -1,0 +1,38 @@
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Actif?</th>
+        <th>Nom</th>
+        <th>GSM</th>
+        <th># places</th>
+        <th>Adresse</th>
+        <th>LUN</th>
+        <th>MAR</th>
+        <th>MER</th>
+        <th>JEU</th>
+        <th>VEN</th>
+        <th>SAM</th>
+        <th>DIM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @volunteers.each do |volunteer| %>
+        <tr>
+          <th scope="row"><%= volunteer.active? %></th>
+          <td><%= volunteer.full_name %></td>
+          <td><%= volunteer.mobile_phone_number %></td>
+          <td><%= volunteer.number_of_beds %></td>
+          <td><%= volunteer.address %></td>
+          <td><i class="fa <%= volunteer.available_mon ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+          <td><i class="fa <%= volunteer.available_tue ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+          <td><i class="fa <%= volunteer.available_wed ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+          <td><i class="fa <%= volunteer.available_thu ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+          <td><i class="fa <%= volunteer.available_fri ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+          <td><i class="fa <%= volunteer.available_sat ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+          <td><i class="fa <%= volunteer.available_sun ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
