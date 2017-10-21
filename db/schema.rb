@@ -20,15 +20,15 @@ ActiveRecord::Schema.define(version: 20171021075321) do
     t.string "last_name"
     t.string "email"
     t.string "mobile_phone_number"
-    t.integer "number_of_beds"
-    t.boolean "is_active"
-    t.boolean "available_mon"
-    t.boolean "available_tue"
-    t.boolean "available_wed"
-    t.boolean "available_thu"
-    t.boolean "available_fri"
-    t.boolean "available_sat"
-    t.boolean "available_sun"
+    t.integer "number_of_beds", default: 1
+    t.boolean "is_active", default: true
+    t.boolean "available_mon", default: false
+    t.boolean "available_tue", default: false
+    t.boolean "available_wed", default: false
+    t.boolean "available_thu", default: false
+    t.boolean "available_fri", default: false
+    t.boolean "available_sat", default: false
+    t.boolean "available_sun", default: false
     t.string "address"
     t.float "latitude"
     t.float "longitude"

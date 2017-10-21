@@ -5,20 +5,16 @@ class VolunteersController < ApplicationController
 
   def index
     @volunteers = Volunteer.all
-    # @location = Location.near(params[:search], 50, :order => :distance)
   end
 
   def create
     @volunteer = Volunteer.new volunteer_params
     if @volunteer.save!
       flash[:success] = "Merci pour votre soutien, #{@volunteer.first_name}!"
-      redirect_to root_path
     else
-      # This line overrides the default rendering behavior, which
-      # would have been to render the "create" view.
       flash[:error] = "Erreur dans votre enregistrement"
-      render "new"
     end
+    redirect_to root_path
   end
 
 

@@ -20,9 +20,10 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'figaro'
-gem 'twilio'
+gem 'twilio-ruby'
 gem 'redis'
 gem 'sidekiq'
+gem 'interactor'
 
 
 group :development, :test do

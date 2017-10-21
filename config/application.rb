@@ -27,6 +27,7 @@ module Heartswideopen
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-    config.twilio_phone_number = "+32460207670"
+
+    config.messages_availability_request = "Bonjour, pouvez-vous héberger quelqu'un ce soir? Si oui, répondez OUI. STOP pour se désinscrire."
   end
 end

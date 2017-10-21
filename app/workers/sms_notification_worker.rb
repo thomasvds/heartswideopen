@@ -1,8 +1,9 @@
 class SmsNotificationWorker
   include Sidekiq::Worker
 
-  def perform(attributes)
-    set_variables(attributes)
+  def perform(mobile_phone, message)
+    @mobile_phone = mobile_phone
+    @message = message
     return unless Rails.application.config.twilio_sms_active
     begin
       client.messages.create(
@@ -19,11 +20,6 @@ class SmsNotificationWorker
   private
 
   attr_reader :mobile_phone, :message
-
-  def set_variables(attributes)
-    @mobile_phone = attributes['mobile_phone']
-    @message = attributes['message']
-  end
 
   def client
     @client ||= Twilio::REST::Client.new
