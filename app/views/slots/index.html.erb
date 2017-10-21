@@ -1,0 +1,63 @@
+<div class="container u-top-margin">
+  <div class="card">
+    <h3 class="card-header">Disponibilités confirmées aujourd'hui (<%= @total_number_of_beds%> lits au total)<button class='btn btn-primary pull-right' id="requestAvailabilitiesButton" >Envoyer les sms de demande</button></h3>
+    <div class="card-block">
+      <div class="card-text">
+      <p>Ce tableau est construit dynamiquement chaque jour à partir des réponses
+      fournies par les hébergeurs au sms de demande d'hébergement, en fonction de leurs disponibilités reprises dans la <a href='/volunteers'>table générale</a>.</p>
+      <p>Pour connaître chaque jour les disponibilités des hébergeurs, il faut appuyer sur le bouton "Envoyer un sms". A ce moment, tous les hébergeurs qui n'ont pas encore reçu ce sms aujourd'hui recevront une proposition d'hébergement s'ils ont marqué qu'ils étaient en général disponibles le jour d'aujourd'hui. Il est donc à noter qu'on peut cliquer plusieurs fois sur le bouton au cours d'une même journée, pour s'assurer par exemple que les tout derniers hébergeurs inscrits reçoivent aussi le sms.</p>
+      <p>Le texte du message envoyé est le suivant: <i>"Bonjour, pouvez-vous héberger quelqu'un ce soir? Si oui, répondez OUI. FINISH pour se désinscrire. GO pour se réinscrire. NON pour annuler après OUI."</i>. La plate-forme se charge automatiquement de mettre à jour les disponibilités et de désinscrire les hébergeurs en ayant fait la demande.</i></p>
+      <p>Ne pas oublier de rafraîchir la page de temps en temps pour obtenir les toutes dernières disponibilités!</p>
+      </div>
+    </div>
+    <div class="card-block">
+      <div class="card-text">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>GSM</th>
+              <th># lits</th>
+              <th>Adresse</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @slots.each do |slot| %>
+            <tr>
+              <td><%= slot.nickname %></td>
+              <td><%= slot.mobile_phone_number %></td>
+              <td><%= slot.number_of_beds %></td>
+              <td><%= slot.address %></td>
+              <td><%= slot.available ? 'Disponible' : 'Annulé' %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'volunteers/index/map', volunteers: @slots %>
+
+<% content_for :footer_js do %>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/b-1.4.2/b-html5-1.4.2/cr-1.4.1/fh-3.1.3/datatables.min.css"/>
+
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/b-1.4.2/b-html5-1.4.2/cr-1.4.1/fh-3.1.3/datatables.min.js"></script>
+  <script>
+    $('.table').DataTable();
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#requestAvailabilitiesButton').click(function(){
+        console.log('here');
+          $.ajax({url: 'slots/request_availabilities', success: function(result){
+              console.log('ok');
+          }});
+      });
+    });
+  </script>
+<% end %>
+

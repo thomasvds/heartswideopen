@@ -1,0 +1,28 @@
+<style>
+ #map {
+  height: 600px;
+  width: 100%;
+}
+</style>
+<div id="map"></div>
+<script>
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: {lat: 50.8607356, lng: 4.3490166}
+    });
+
+    <% volunteers.each do |v| %>
+    <% next if v.latitude.nil? %>
+    var marker = new google.maps.Marker({
+      position: {lat: <%= v.latitude %>, lng: <%= v.longitude %>},
+      map: map,
+      label: '<%= v.nickname %>'
+    });
+    <% end %>
+  };
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['google_map_api_key']%>&callback=initMap">
+</script>

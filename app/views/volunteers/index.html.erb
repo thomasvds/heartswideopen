@@ -1,6 +1,13 @@
 <div class="container u-top-margin">
   <div class="card">
-    <h3 class="card-header">Liste des hébergeurs et disponibilités</h3>
+    <h3 class="card-header">Liste des hébergeurs et disponibilités générales</h3>
+    <div class="card-block">
+      <div class="card-text">
+      <p>Ce tableau est construit de manière statique à partir des inscriptions des
+      hébergeurs. Ceux-ci renseignent leurs disponibilités générales (les jours où ils sont d'habitude prêts à accueillir quelqu'un).</p>
+      <p>Pour connaître les disponibilités effectives des hébergeurs chaque jour, il faut aller dans la <a href='/slots'>table des disponibilités du jour</a></p>
+      </div>
+    </div>
     <div class="card-block">
       <div class="card-text">
         <table class="table table-striped">
@@ -24,7 +31,7 @@
             <% @volunteers.each do |volunteer| %>
             <tr>
               <th scope="row"><%= volunteer.active? %></th>
-              <td><%= volunteer.full_name %></td>
+              <td><%= volunteer.nickname %></td>
               <td><%= volunteer.mobile_phone_number %></td>
               <td><%= volunteer.number_of_beds %></td>
               <td><%= volunteer.address %></td>
@@ -44,33 +51,14 @@
   </div>
 </div>
 
-<style>
- #map {
-  height: 400px;
-  width: 100%;
-}
-</style>
-<div id="map"></div>
-<script>
 
-  function initMap() {
-    var myLatLng = {lat: <%= @volunteers.first.latitude %>, lng: <%= @volunteers.first.longitude %>};
+<%= render 'volunteers/index/map', volunteers: @volunteers %>
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: myLatLng
-    });
+<% content_for :footer_js do %>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/b-1.4.2/b-html5-1.4.2/cr-1.4.1/fh-3.1.3/datatables.min.css"/>
 
-    <% @volunteers.each do |v| %>
-    <% next if v.latitude.nil? %>
-    var marker = new google.maps.Marker({
-      position: {lat: <%= v.latitude %>, lng: <%= v.longitude %>},
-      map: map,
-      title: '<%= v.full_name %>'
-    });
-    <% end %>
-  };
-</script>
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['google_map_api_key']%>&callback=initMap">
-</script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/b-1.4.2/b-html5-1.4.2/cr-1.4.1/fh-3.1.3/datatables.min.js"></script>
+  <script>
+    $('.table').DataTable();
+  </script>
+<% end %>

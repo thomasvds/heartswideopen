@@ -1,8 +1,9 @@
 class IncomingSmsHandlingWorker
   include Sidekiq::Worker
 
-  def perform(raw_twilio_params)
-    @raw_twilio_params = raw_twilio_params
+  def perform(mobile_phone_number, message)
+    @mobile_phone_number = mobile_phone_number
+    @message = message
 
     return unless volunteer.present?
 
@@ -11,7 +12,7 @@ class IncomingSmsHandlingWorker
       notify_deactivation
     elsif parser.activation_message?
       volunteer.activate!
-      notify_desactivation
+      notify_activation
     elsif parser.confirmation_message?
       volunteer.confirm_slot_for_today!
       notify_confirmation
@@ -24,10 +25,10 @@ class IncomingSmsHandlingWorker
 
   private
 
-  attr_reader :raw_twilio_params, :volunteer
+  attr_reader :mobile_phone_number, :message, :volunteer
 
   def parser
-    @parser ||= SmsParser.new(raw_twilio_params)
+    @parser ||= SmsParser.new(mobile_phone_number, message)
   end
 
   def volunteer

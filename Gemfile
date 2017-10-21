@@ -24,6 +24,7 @@ gem 'twilio-ruby'
 gem 'redis'
 gem 'sidekiq'
 gem 'interactor'
+gem 'phonelib'
 
 
 group :development, :test do

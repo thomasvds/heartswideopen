@@ -27,7 +27,8 @@ module Heartswideopen
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-
-    config.messages_availability_request = "Bonjour, pouvez-vous héberger quelqu'un ce soir? Si oui, répondez OUI. STOP pour se désinscrire."
+    config.http_basic_username = ENV['admin_name']
+    config.http_basic_password = ENV['admin_password']
+    config.messages_availability_request = "Bonjour, pouvez-vous héberger quelqu'un ce soir? Si oui, répondez OUI. FINISH pour se désinscrire. GO pour se réinscrire. NON pour annuler après OUI."
   end
 end

@@ -10,18 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021075321) do
+ActiveRecord::Schema.define(version: 20171021133110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "configuration_books", force: :cascade do |t|
+    t.datetime "last_availability_request_sent_at"
+  end
+
+  create_table "slots", force: :cascade do |t|
+    t.boolean "available", default: true
+    t.boolean "selected", default: false
+    t.datetime "date"
+    t.bigint "volunteer_id"
+    t.text "comments"
+    t.index ["volunteer_id"], name: "index_slots_on_volunteer_id"
+  end
+
   create_table "volunteers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "nickname"
     t.string "email"
     t.string "mobile_phone_number"
     t.integer "number_of_beds", default: 1
-    t.boolean "is_active", default: true
+    t.boolean "active", default: true
+    t.datetime "last_queried_at"
+    t.boolean "can_be_driver"
     t.boolean "available_mon", default: false
     t.boolean "available_tue", default: false
     t.boolean "available_wed", default: false
@@ -29,9 +43,11 @@ ActiveRecord::Schema.define(version: 20171021075321) do
     t.boolean "available_fri", default: false
     t.boolean "available_sat", default: false
     t.boolean "available_sun", default: false
+    t.text "comments"
     t.string "address"
     t.float "latitude"
     t.float "longitude"
   end
 
+  add_foreign_key "slots", "volunteers"
 end

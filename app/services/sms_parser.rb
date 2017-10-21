@@ -1,7 +1,7 @@
 class SmsParser
-  def initialize(raw_twilio_params)
-    @mobile_phone_number = raw_twilio_params["From"]
-    @message = raw_twilio_params["Body"]
+  def initialize(mobile_phone_number, message)
+    @mobile_phone_number = mobile_phone_number
+    @message = message
   end
 
   def volunteer
@@ -9,11 +9,11 @@ class SmsParser
   end
 
   def deactivation_message?
-    message.match(/stop/i).present?
+    message.match(/finish/i).present?
   end
 
   def activation_message?
-    message.match(/start/i).present?
+    message.match(/go/i).present?
   end
 
   def confirmation_message?
