@@ -19,6 +19,7 @@
               <th>GSM</th>
               <th># lits</th>
               <th>Adresse</th>
+              <th>Conducteur?</th>
               <th>Statut</th>
             </tr>
           </thead>
@@ -29,6 +30,7 @@
               <td><%= slot.mobile_phone_number %></td>
               <td><%= slot.number_of_beds %></td>
               <td><%= slot.address %></td>
+              <td><i class="fa <%= slot.can_be_driver ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
               <td><%= slot.available ? 'Disponible' : 'Annulé' %></td>
             </tr>
             <% end %>

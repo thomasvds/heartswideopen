@@ -6,7 +6,7 @@ class Slot < ActiveRecord::Base
   scope :available, -> { where(available: true) }
 
   delegate :nickname, :mobile_phone_number, :address, :number_of_beds,
-  :latitude, :longitude, to: :volunteer
+  :latitude, :longitude, :can_be_driver, to: :volunteer
 
   def self.build(options)
     self.create(options.merge(date: Date.today))
