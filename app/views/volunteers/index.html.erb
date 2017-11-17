@@ -3,8 +3,7 @@
     <h3 class="card-header">Liste des hébergeurs et disponibilités générales</h3>
     <div class="card-block">
       <div class="card-text">
-      <p>Ce tableau est construit de manière statique à partir des inscriptions des
-      hébergeurs. Ceux-ci renseignent leurs disponibilités générales (les jours où ils sont d'habitude prêts à accueillir quelqu'un).</p>
+      <p>Ce tableau est construit de manière statique à partir des inscriptions des hébergeurs. Ceux-ci renseignent leurs disponibilités générales (les jours où ils sont d'habitude prêts à accueillir quelqu'un).</p>
       <p>Pour connaître les disponibilités effectives des hébergeurs chaque jour, il faut aller dans la <a href='/slots'>table des disponibilités du jour</a></p>
       </div>
     </div>
@@ -14,23 +13,25 @@
           <thead>
             <tr>
               <th>Actif?</th>
+              <th>Conducteur?</th>
               <th>Nom</th>
               <th>GSM</th>
               <th># lits</th>
               <th>Adresse</th>
-              <th>LUN</th>
-              <th>MAR</th>
-              <th>MER</th>
-              <th>JEU</th>
-              <th>VEN</th>
-              <th>SAM</th>
-              <th>DIM</th>
+              <th>LU</th>
+              <th>MA</th>
+              <th>ME</th>
+              <th>JE</th>
+              <th>VE</th>
+              <th>SA</th>
+              <th>DI</th>
             </tr>
           </thead>
           <tbody>
             <% @volunteers.each do |volunteer| %>
             <tr>
-              <th scope="row"><%= volunteer.active? %></th>
+              <td><i class="fa <%= volunteer.active? ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
+              <td><i class="fa <%= volunteer.can_be_driver ? 'fa-check u-text-success' : 'fa-times u-text-light' %>"></i></td>
               <td><%= volunteer.nickname %></td>
               <td><%= volunteer.mobile_phone_number %></td>
               <td><%= volunteer.number_of_beds %></td>

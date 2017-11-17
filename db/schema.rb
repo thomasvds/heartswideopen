@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20171021133110) do
     t.integer "number_of_beds", default: 1
     t.boolean "active", default: true
     t.datetime "last_queried_at"
-    t.boolean "can_be_driver"
+    t.boolean "can_be_driver", default: false
     t.boolean "available_mon", default: false
     t.boolean "available_tue", default: false
     t.boolean "available_wed", default: false

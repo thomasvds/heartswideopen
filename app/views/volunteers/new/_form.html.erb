@@ -1,107 +1,94 @@
-<div class="row">
-  <div class="col-md-6 col-sm-12">
-    <h4>Bienvenue sur le nouveau site</h4>
-    <p>Suite à toutes les demandes, nous avons créé ce site</p>
-  </div>
-  <div class="col-md-6 col-sm-12">
-    <div class="card">
-      <div class="card-block">
-        <h4 class="card-title">Je m'inscris en tant que citoyen hébergeur</h4>
-        <h6 class="card-subtitle mb-2 text-muted">Simple, rapide, et confidentiel</h6>
-        <br>
-        <p class="card-text">
+
+<div class="col-md-6 col-sm-12">
+  <div class="card">
+    <div class="card-block">
+      <h4 class="card-title">Je m'inscris en tant que citoyen hébergeur</h4>
+      <h6 class="card-subtitle mb-2 text-muted">Simple, rapide, et confidentiel</h6>
+      <br>
+      <p class="card-text">
         <%= render 'layouts/flash_messages', flash: flash %>
         <div class="form-group u-top-margin">
 
+          <%= simple_form_for(@volunteer, html: { class: 'form-horizontal' }) do |f| %>
 
-            <%= simple_form_for(@volunteer, html: { class: 'form-horizontal' }) do |f| %>
-
-            <div class="form-group row">
-              <div class= "col-sm-12 col-md-4 col-form-label">
-                <%= f.label :dummy, "Pseudo" %>
-                <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Par exemple, votre prénom et le premier mot de votre chanson préférée. Cela nous aide à garantir votre confidentialité"></i>
-              </div>
-              <div class="col-sm-12 col-md-8">
-                <%= f.input :nickname, label: false, error: 'Username is mandatory, please specify one', placeholder: 'Jean Jean', class: "form-control"  %>
-              </div>
+          <div class="form-group row">
+            <div class= "col-sm-12 col-md-4 col-form-label">
+              <%= f.label :dummy, "Pseudo" %>
+              <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Par exemple, votre prénom et le premier mot de votre chanson préférée. Cela nous aide à garantir votre confidentialité"></i>
             </div>
-
-            <div class="form-group row">
-              <div class= "col-sm-12 col-md-4 col-form-label">
-                <%= f.label :dummy, "N° de GSM" %>
-                <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="C'est ce numéro qui sera utilisé pour vous proposer d'accueillir des personnes si vous le désirez"></i>
-              </div>
-              <div class="col-sm-12 col-md-8">
-                <%= f.input :mobile_phone_number, label: false, error: 'Username is mandatory, please specify one', class: "form-control"  %>
-              </div>
+            <div class="col-sm-12 col-md-8">
+              <%= f.input :nickname, label: false, error: 'Username is mandatory, please specify one', placeholder: 'Jean Jean', class: "form-control"  %>
             </div>
+          </div>
 
-            <div class="form-group row">
-              <div class= "col-sm-12 col-md-4 col-form-label">
-                <%= f.label :dummy, "Adresse complète" %>
-                <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Merci d'inclure votre ville et votre code postal"></i>
-              </div>
-              <div class="col-sm-12 col-md-8">
-                <%= f.input :address, label: false, error: 'Username is mandatory, please specify one', class: "form-control"  %>
-              </div>
+          <div class="form-group row">
+            <div class= "col-sm-12 col-md-4 col-form-label">
+              <%= f.label :dummy, "N° de GSM" %>
+              <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="C'est ce numéro qui sera utilisé pour vous proposer d'accueillir des personnes si vous le désirez"></i>
             </div>
-
-            <div class="form-group row">
-              <div class= "col-sm-12 col-md-4 col-form-label">
-                <%= f.label :dummy, "Nombre de places" %>
-                <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Merci d'indiquer le nombre de personnes que vous êtes prêt à accueillir"></i>
-              </div>
-              <div class="col-sm-12 col-md-8">
-                <%= f.input :number_of_beds, label: false, error: 'Username is mandatory, please specify one', class: "form-control"  %>
-              </div>
+            <div class="col-sm-12 col-md-8">
+              <%= f.input :mobile_phone_number, label: false, error: 'Username is mandatory, please specify one', class: "form-control"  %>
             </div>
+          </div>
 
-            <div class="form-group row">
-              <div class= "col-sm-12 col-md-4 col-form-label">
-                <%= f.label :dummy, "Disponibilités" %>
-                <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Merci de cocher les jours où vous êtes d'habitude disponible. Vous recevrez alors une proposition que vous êtes libres d'accepter durant la journée. Vous pouvez à tout moment vous désinscrire."></i>
-              </div>
-              <% [{value: 'mon', label: 'LUN'}, {value: 'tue', label: 'MAR'}, {value: 'wed', label: 'MER'}, {value: 'thu', label: 'JEU'}, {value: 'fri', label: 'VEN'}, {value: 'sat', label: 'SAM'}, {value: 'sun', label: 'DIM'}].each do |day| %>
-                <% value = day[:value] %>
-                <% label = day[:label] %>
-                <div class="col-sm-1">
-                  <%= f.label "available_#{value}".to_sym, label %>
-                  <%= f.input_field "available_#{value}".to_sym, as: :boolean, boolean_style: :inline, class: "form-control", label: label  %>
-                </div>
-              <% end %>
+          <div class="form-group row">
+            <div class= "col-sm-12 col-md-4 col-form-label">
+              <%= f.label :dummy, "Adresse complète" %>
+              <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Merci d'inclure votre ville et votre code postal"></i>
             </div>
-
-            <div class="form-group row">
-
-              <div class="col-sm-12 col-md-1">
-                <%= f.input :can_be_driver, label: false, error: 'Username is mandatory, please specify one', class: "form-control"  %>
-              </div>
-              <div class= "col-sm-12 col-md-11 col-form-label">
-                <%= f.label :can_be_driver, "Je peux venir chercher les personnes que j'accueille" %>
-                <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Merci de cocher cette case si vous pouvez venir jusqu'au parc Maximilien le soir de l'hébergement"></i>
-              </div>
+            <div class="col-sm-12 col-md-8">
+              <%= f.input :address, label: false, error: 'Username is mandatory, please specify one', class: "form-control"  %>
             </div>
+          </div>
 
+          <div class="form-group row">
+            <div class= "col-sm-12 col-md-4 col-form-label">
+              <%= f.label :dummy, "Nombre de places" %>
+              <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Merci d'indiquer le nombre de personnes que vous êtes prêt à accueillir"></i>
+            </div>
+            <div class="col-sm-12 col-md-8">
+              <%= f.input :number_of_beds, label: false, error: 'Username is mandatory, please specify one', class: "form-control"  %>
+            </div>
+          </div>
 
-
-
-
-
-
-            <div class="row">
-              <div class='col'>
-                <%= f.button :submit, value: "Je m'inscris", class: 'btn btn-success pull-right' %>
-              </div>
+          <div class="form-group row">
+            <div class= "col-sm-12 col-md-4 col-form-label">
+              <%= f.label :dummy, "Disponibilités" %>
+              <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Merci de cocher les jours où vous êtes d'habitude disponible. Vous recevrez alors une proposition que vous êtes libres d'accepter durant la journée. Vous pouvez à tout moment vous désinscrire."></i>
+            </div>
+            <% [{value: 'mon', label: 'LUN'}, {value: 'tue', label: 'MAR'}, {value: 'wed', label: 'MER'}, {value: 'thu', label: 'JEU'}, {value: 'fri', label: 'VEN'}, {value: 'sat', label: 'SAM'}, {value: 'sun', label: 'DIM'}].each do |day| %>
+            <% value = day[:value] %>
+            <% label = day[:label] %>
+            <div class="col-sm-1">
+              <%= f.label "available_#{value}".to_sym, label %>
+              <%= f.input_field "available_#{value}".to_sym, as: :boolean, boolean_style: :inline, class: "form-control", label: label  %>
             </div>
             <% end %>
-
           </div>
-        </p>
-        <a href="#" class="card-link">Comment ça marche ?</a>
-        <a href="#" class="card-link">Mentions légales & vie privée</a>
-      </div>
+
+          <div class="form-group row">
+
+            <div class="col-sm-12 col-md-1">
+              <%= f.input :can_be_driver, label: false, error: 'Username is mandatory, please specify one', class: "form-control"  %>
+            </div>
+            <div class= "col-sm-12 col-md-11 col-form-label">
+              <%= f.label :can_be_driver, "Je peux venir chercher les personnes que j'accueille" %>
+              <i class="fa fa-lightbulb-o" data-toggle="tooltip" data-placement="top" title="Merci de cocher cette case si vous pouvez venir jusqu'au parc Maximilien le soir de l'hébergement"></i>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class='col'>
+            <%= f.button :submit, value: "Je m'inscris", class: 'btn btn-success pull-right', style: 'background-color: #005870; border-color: #005870;' %>
+            </div>
+          </div>
+          <% end %>
+
+        </div>
+      </p>
     </div>
   </div>
 </div>
+
 
 
